@@ -36,17 +36,16 @@
 (def sentences ["Augo girioje medis" "mano puodelis didesnis" "I like tree" "I have a cup" ])
 
 (defn ask [words lang1 lang2 sentences] 
-  (let [w  (rand-nth words)
-        word (w lang1)
-      se  (first (filter #(.contains % word) sentences ))
-      ]
-  (println (str (name lang1) ": " (w lang1) " " (name lang2) " "(w lang2) ))
-  (println (str "type " (name lang2) ":"))
-  (println (str "sample: " se))        
-      (let [resp (str (read))
-            expected (w lang2)
-
-            ]
+  (let [w        (rand-nth words)
+        word     (w lang1)
+        expected (w lang2)
+        se       (first (filter #(.contains % word) sentences ))
+        ]
+(do    (println (str (name lang1) ": " (w lang1) ))
+    (println (str (name lang2) ": "(w lang2) ))
+  (println (str "type " (name lang2) ":")))
+;  (println (str "sample: " se))        
+(let [resp (read)]
         (println (if (= expected resp)
            "Good" (str "expected :" expected " but was " resp )  )))))
 
@@ -55,8 +54,8 @@
 
 
 
-(count german-words)
-(first german-words)
+;(count german-words)
+;(first german-words)
 
 (defn -main
   "I don't do a whole lot ... yet."
