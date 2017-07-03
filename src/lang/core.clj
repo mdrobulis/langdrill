@@ -31,6 +31,9 @@
 (def german-words (doall (map #(let [[ger & en] % ] {:ger ger :en (first en)})   (read-dict "german1.csv"))))
 
 
+(def spanish-words (doall (map #(let [[ger & en] % ] {:es ger :en (first en)})   (read-dict "spanish.csv"))))
+
+
 
 
 (def sentences ["Augo girioje medis" "mano puodelis didesnis" "I like tree" "I have a cup" ])
@@ -45,11 +48,18 @@
     (println (str (name lang2) ": "(w lang2) ))
   (println (str "type " (name lang2) ":")))
 ;  (println (str "sample: " se))        
-(let [resp (read)]
+(let [resp (str (read-line))]
         (println (if (= expected resp)
            "Good" (str "expected :" expected " but was " resp )  )))))
 
 
+(defn find-word [word dict]
+  (first (filter #(= word (% :en)) dict)))
+
+(def dict (map #(merge (find-word (% :en) german-words) (or % {})) spanish-words))
+
+(count (filter #(contains? % :es) dict))
+(count dict)
 
 
 
@@ -66,7 +76,7 @@
   (println "Words will be picked at random." )
   (println "You must type them in to move on.")
   (loop []    
-    (ask (take 100 german-words) :en :ger [])
+    (ask (take 1000 spanish-words) :en :es [])
     (recur)
     )
 
