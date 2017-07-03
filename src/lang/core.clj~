@@ -1,0 +1,38 @@
+(ns lang.core
+  (:gen-class)
+  (:require [clojure.data.csv :as csv]
+         [clojure.java.io :as io]))
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  
+  (println "Hello, World!")
+  (read )
+  )
+
+(def words {:nouns ["cup" "man" ]
+            :verbs ["likes"]
+            } )
+
+
+(def words [{:lt "medis" :en "tree" :ru "derevo" } {:lt "puodelis" :en "cup"} ])
+
+
+(def sentences ["Augo girioje medis" "mano puodelis didesnis" "I like tree" "I have a cup" ])
+
+(defn ask [words lang sentences] 
+  (let [w  (rand-nth words)
+        word (w lang)
+      se  (first (filter #(.contains % word) sentences ))
+      ]
+  (println (str "en: " (w :en) " lt: " (w :lt) ))
+  (println (str "type " (name lang) ":"))
+  (println (str "sample: " se))        
+      (let [resp (str (read))
+            expected (w lang)
+
+            ]
+
+        (if (= expected resp) "Good" (str "expected :" expected " but was " resp )  ))))
+
